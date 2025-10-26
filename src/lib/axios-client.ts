@@ -26,6 +26,7 @@ API.interceptors.response.use(
     const customError: CustomError = {
       ...error,
       errorCode: data?.errorCode || "UNKNOWN_ERROR",
+       message: data?.message || error.message,
     };
 
     return Promise.reject(customError);
