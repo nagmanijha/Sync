@@ -29,7 +29,7 @@ import { Textarea } from "../../ui/textarea";
 import { Calendar } from "../../ui/calendar";
 import useWorkspaceId from "../../../hooks/use-workspace-id";
 import { TaskPriorityEnum, TaskStatusEnum } from "../../../constant";
-import useGetWorkspaceMembers from "../../../hooks/api/use-get-workspace-members";
+import { useGetWorkspaceMembers } from "../../../hooks/api/use-get-workspace-members";
 import { editTaskMutationFn } from "../../../lib/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "../../../hooks/use-toast";
@@ -43,7 +43,7 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
     mutationFn: editTaskMutationFn,
   });
 
-  const { data: memberData } = useGetWorkspaceMembers(workspaceId);
+  const { data: memberData } = useGetWorkspaceMembers({ workspaceId });
   const members = memberData?.members || [];
 
   // Members Dropdown Options
@@ -150,10 +150,10 @@ export default function EditTaskForm({ task, onClose }: { task: TaskType; onClos
                 <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                   <FormControl><SelectTrigger><SelectValue placeholder="Select an assignee" /></SelectTrigger></FormControl>
                   <SelectContent>
-                  <div className="w-full max-h-[200px] overflow-y-auto scrollbar">
-                    {membersOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
-                    ))}
+                    <div className="w-full max-h-[200px] overflow-y-auto scrollbar">
+                      {membersOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+                      ))}
                     </div>
                   </SelectContent>
                 </Select>

@@ -122,6 +122,7 @@ export type AllMembersInWorkspaceResponseType = {
     createdAt: string;
   }[];
   roles: RoleType[];
+  pagination: PaginationType;
 };
 
 export type AnalyticsResponseType = {
@@ -283,6 +284,24 @@ export type AllTaskResponseType = {
   tasks: TaskType[];
   pagination: PaginationType;
 };
+//********* AUDIT LOGS ****************
+export type AuditLogType = {
+  _id: string;
+  action: string;
+  entityType: string;
+  actorId: {
+    _id: string;
+    name: string;
+    email: string;
+    profilePicture: string | null;
+  };
+  createdAt: string;
+};
+
+export type AuditLogResponseType = {
+  logs: AuditLogType[];
+};
+
 // **************** ERROR TYPES ****************
 export type ErrorResponseType = {
   message: string;            // user-friendly message

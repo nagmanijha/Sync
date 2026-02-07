@@ -36,7 +36,7 @@ import {
 import useWorkspaceId from "../../../hooks/use-workspace-id";
 import { TaskPriorityEnum, TaskStatusEnum } from "../../../constant";
 import useGetProjectsInWorkspaceQuery from "../../../hooks/api/use-get-projects";
-import useGetWorkspaceMembers from "../../../hooks/api/use-get-workspace-members";
+import { useGetWorkspaceMembers } from "../../../hooks/api/use-get-workspace-members";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import { createTaskMutationFn } from "../../../lib/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -60,7 +60,7 @@ export default function CreateTaskForm(props: {
     skip: !!projectId,
   });
 
-  const { data: memberData } = useGetWorkspaceMembers(workspaceId);
+  const { data: memberData } = useGetWorkspaceMembers({ workspaceId });
 
   const projects = data?.projects || [];
   const members = memberData?.members || [];
@@ -365,7 +365,7 @@ export default function CreateTaskForm(props: {
                           disabled={
                             (date) =>
                               date <
-                                new Date(new Date().setHours(0, 0, 0, 0)) || // Disable past dates
+                              new Date(new Date().setHours(0, 0, 0, 0)) || // Disable past dates
                               date > new Date("2100-12-31") //Prevent selection beyond a far future date
                           }
                           initialFocus

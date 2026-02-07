@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
-import useGetWorkspaceMembers from "../../../hooks/api/use-get-workspace-members";
+import { useGetWorkspaceMembers } from "../../../hooks/api/use-get-workspace-members";
 import useWorkspaceId from "../../../hooks/use-workspace-id";
 import { getAvatarColor, getAvatarFallbackText } from "../../../lib/helper";
 import { format } from "date-fns";

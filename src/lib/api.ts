@@ -6,6 +6,7 @@ import type {
   AllTaskPayloadType,
   AllTaskResponseType,
   AnalyticsResponseType,
+  AuditLogResponseType,
   ChangeWorkspaceMemberRoleType,
   CreateProjectPayloadType,
   CreateTaskPayloadType,
@@ -75,10 +76,21 @@ export const getWorkspaceByIdQueryFn = async (
   return response.data;
 };
 
-export const getMembersInWorkspaceQueryFn = async (
-  workspaceId: string
-): Promise<AllMembersInWorkspaceResponseType> => {
-  const response = await API.get(`/workspace/members/${workspaceId}`);
+export const getMembersInWorkspaceQueryFn = async ({
+  workspaceId,
+  pageSize = 10,
+  pageNumber = 1,
+  keyword,
+}: {
+  workspaceId: string;
+  pageSize?: number;
+  pageNumber?: number;
+  keyword?: string;
+}): Promise<AllMembersInWorkspaceResponseType> => {
+  const response = await API.get(
+    `/workspace/members/${workspaceId}?pageSize=${pageSize}&pageNumber=${pageNumber}&keyword=${keyword || ""
+    }`
+  );
   return response.data;
 };
 
@@ -119,6 +131,21 @@ export const invitedUserJoinWorkspaceMutationFn = async (
   workspaceId: string;
 }> => {
   const response = await API.post(`/member/workspace/${iniviteCode}/join`);
+  return response.data;
+};
+
+export const removeMemberFromWorkspaceMutationFn = async ({
+  workspaceId,
+  memberId,
+}: {
+  workspaceId: string;
+  memberId: string;
+}): Promise<{
+  message: string;
+}> => {
+  const response = await API.delete(
+    `/workspace/member/${memberId}/workspace/${workspaceId}/remove`
+  );
   return response.data;
 };
 
@@ -211,7 +238,7 @@ export const editTaskMutationFn = async ({
   projectId,
   workspaceId,
   data,
-}: EditTaskPayloadType): Promise<{message: string;}> => {
+}: EditTaskPayloadType): Promise<{ message: string; }> => {
   const response = await API.put(
     `/task/${taskId}/project/${projectId}/workspace/${workspaceId}/update/`,
     data
@@ -259,5 +286,12 @@ export const deleteTaskMutationFn = async ({
   const response = await API.delete(
     `task/${taskId}/workspace/${workspaceId}/delete`
   );
+  return response.data;
+};
+//********* AUDIT LOGS ****************
+export const getWorkspaceAuditLogsQueryFn = async (
+  workspaceId: string
+): Promise<AuditLogResponseType> => {
+  const response = await API.get(`/workspace/logs/${workspaceId}`);
   return response.data;
 };

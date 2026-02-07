@@ -1,16 +1,14 @@
 import { AudioWaveform } from "lucide-react";
-// import { Link } from "react-router-dom";
+import { cn } from "../../lib/utils";
 
-// interface LogoProps {
-//   url?: string;
-//   clickable?: boolean;
-// }
+interface LogoProps {
+  className?: string;
+}
 
-const Logo = () => (
-  <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
+const Logo = ({ className }: LogoProps) => (
+  <div className={cn("flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground", className)}>
     <AudioWaveform className="size-4" />
   </div>
 );
-
 
 export default Logo;

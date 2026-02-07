@@ -13,6 +13,7 @@ export const authenticationRoutePaths = [
   { path: AUTH_ROUTES.SIGN_IN, element: <SignIn /> },
   { path: AUTH_ROUTES.SIGN_UP, element: <SignUp /> },
   { path: AUTH_ROUTES.GOOGLE_OAUTH_CALLBACK, element: <GoogleOAuthFailure /> },
+  { path: AUTH_ROUTES.ROOT, element: <SignIn /> },
 ];
 
 export const protectedRoutePaths = [

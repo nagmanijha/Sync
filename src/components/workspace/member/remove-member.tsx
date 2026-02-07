@@ -1,4 +1,4 @@
-import useGetWorkspaceMembers from "../../../hooks/api/use-get-workspace-members";
+import { useGetWorkspaceMembers } from "../../../hooks/api/use-get-workspace-members";
 import useWorkspaceId from "../../../hooks/use-workspace-id";
 import { Loader } from "lucide-react";
 
@@ -10,7 +10,7 @@ interface RemoveMemberProps {
 
 const RemoveMember = ({ memberId, onRemove, currentUserRole }: RemoveMemberProps) => {
   const workspaceId = useWorkspaceId();
-  const { data, isPending } = useGetWorkspaceMembers(workspaceId);
+  const { data, isPending } = useGetWorkspaceMembers({ workspaceId });
   const members = data?.members || [];
 
   // Handle remove button click
@@ -21,7 +21,7 @@ const RemoveMember = ({ memberId, onRemove, currentUserRole }: RemoveMemberProps
   if (isPending) return <Loader />;
 
   // If memberId is provided, only show that specific member
-  const membersToShow = memberId 
+  const membersToShow = memberId
     ? members.filter(member => member.userId._id === memberId)
     : members;
 
@@ -29,7 +29,7 @@ const RemoveMember = ({ memberId, onRemove, currentUserRole }: RemoveMemberProps
     <div className="flex flex-col pt-2">
       <ul role="list" className="space-y-3">
         {membersToShow.map((member) => {
-          const canRemove = 
+          const canRemove =
             // Only OWNER and ADMIN can remove members
             (currentUserRole === "OWNER" || currentUserRole === "ADMIN") &&
             // Cannot remove OWNER role

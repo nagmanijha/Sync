@@ -55,27 +55,34 @@ export function NavMain() {
 
     ...(canManageSettings
       ? [
-          {
-            title: "Settings",
-            url: `/workspace/${workspaceId}/settings`,
-            icon: Settings,
-          },
-        ]
+        {
+          title: "Settings",
+          url: `/workspace/${workspaceId}/settings`,
+          icon: Settings,
+        },
+      ]
       : []),
   ];
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton isActive={item.url === pathname} asChild>
-              <Link to={item.url} className="!text-[15px]">
-                <item.icon />
-                <span>{item.title}</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        ))}
+        {items.map((item) => {
+          const isActive = item.url === pathname;
+          return (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton
+                isActive={isActive}
+                asChild
+                className={isActive ? "bg-sidebar-accent text-sidebar-primary font-bold" : ""}
+              >
+                <Link to={item.url} className="!text-[15px]">
+                  <item.icon className={isActive ? "text-sidebar-primary" : ""} />
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          )
+        })}
       </SidebarMenu>
     </SidebarGroup>
   );

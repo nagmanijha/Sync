@@ -1,6 +1,6 @@
 import { Separator } from "../../components/ui/separator";
-import InviteMember from "../../components/workspace/member/invite-member";
-import AllMembers from "../../components/workspace/member/all-members";
+import InviteDialog from "../../components/workspace/member/invite-dialog";
+import MembersTable from "../../components/workspace/member/members-table";
 import WorkspaceHeader from "../../components/workspace/common/workspace-header";
 // import RemoveMember from "../../components/workspace/member/remove-member";
 
@@ -10,23 +10,18 @@ export default function Members() {
       <WorkspaceHeader />
       <Separator className="my-4 " />
       <main>
-        <div className="w-full max-w-3xl mx-auto pt-3">
-          <div>
-            <h2 className="text-lg leading-[30px] font-semibold mb-1">
-              Workspace members
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Workspace members can view and join all Workspace project, tasks
-              and create new task in the Workspace.
-            </p>
+        <div className="w-full max-w-5xl mx-auto pt-4">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight">Members</h2>
+              <p className="text-muted-foreground">
+                Manage who has access to this workspace.
+              </p>
+            </div>
+            <InviteDialog />
           </div>
-          <Separator className="my-4" />
 
-          <InviteMember />
-          <Separator className="my-4 !h-[0.5px]" />
-
-          <AllMembers />
-          {/* <RemoveMember /> */}
+          <MembersTable />
         </div>
       </main>
     </div>

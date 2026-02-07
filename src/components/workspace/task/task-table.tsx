@@ -13,7 +13,7 @@ import useWorkspaceId from "../../../hooks/use-workspace-id";
 import { getAllTasksQueryFn } from "../../../lib/api";
 import type { TaskType } from "../../../types/api.type";
 import useGetProjectsInWorkspaceQuery from "../../../hooks/api/use-get-projects";
-import useGetWorkspaceMembers from "../../../hooks/api/use-get-workspace-members";
+import { useGetWorkspaceMembers } from "../../../hooks/api/use-get-workspace-members";
 import { getAvatarColor, getAvatarFallbackText } from "../../../lib/helper";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 
@@ -111,7 +111,7 @@ const DataTableFilterToolbar: FC<DataTableFilterToolbarProps> = ({
     workspaceId,
   });
 
-  const { data: memberData } = useGetWorkspaceMembers(workspaceId);
+  const { data: memberData } = useGetWorkspaceMembers({ workspaceId });
 
   const projects = data?.projects || [];
   const members = memberData?.members || [];
@@ -212,24 +212,24 @@ const DataTableFilterToolbar: FC<DataTableFilterToolbarProps> = ({
       {Object.values(filters).some(
         (value) => value !== null && value !== ""
       ) && (
-        <Button
-          disabled={isLoading}
-          variant="ghost"
-          className="h-8 px-2 lg:px-3"
-          onClick={() =>
-            setFilters({
-              keyword: null,
-              status: null,
-              priority: null,
-              projectId: null,
-              assigneeId: null,
-            })
-          }
-        >
-          Reset
-          <X />
-        </Button>
-      )}
+          <Button
+            disabled={isLoading}
+            variant="ghost"
+            className="h-8 px-2 lg:px-3"
+            onClick={() =>
+              setFilters({
+                keyword: null,
+                status: null,
+                priority: null,
+                projectId: null,
+                assigneeId: null,
+              })
+            }
+          >
+            Reset
+            <X />
+          </Button>
+        )}
     </div>
   );
 };

@@ -19,7 +19,7 @@ import {
 import { getAvatarColor, getAvatarFallbackText } from "../../../lib/helper";
 import { useAuthContext } from "../../../context/auth-provider";
 import useWorkspaceId from "../../../hooks/use-workspace-id";
-import useGetWorkspaceMembers from "../../../hooks/api/use-get-workspace-members";
+import { useGetWorkspaceMembers } from "../../../hooks/api/use-get-workspace-members";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { changeWorkspaceMemberRoleMutationFn } from "../../../lib/api";
 import { toast } from "../../../hooks/use-toast";
@@ -33,7 +33,7 @@ const AllMembers = () => {
   const queryClient = useQueryClient();
   const workspaceId = useWorkspaceId();
 
-  const { data, isPending } = useGetWorkspaceMembers(workspaceId);
+  const { data, isPending } = useGetWorkspaceMembers({ workspaceId });
   const members = data?.members || [];
   const roles = data?.roles || [];
 

@@ -27,7 +27,7 @@ const Header = () => {
 
   const pageHeading = getPageLabel(pathname);
   return (
-    <header className="flex sticky top-0 z-50 bg-white h-12 shrink-0 items-center border-b">
+    <header className="flex sticky top-0 z-50 bg-background/80 backdrop-blur-md h-12 shrink-0 items-center border-b border-border/40">
       <div className="flex flex-1 items-center gap-2 px-3">
         <SidebarTrigger />
         <Separator orientation="vertical" className="mr-2 h-4" />
