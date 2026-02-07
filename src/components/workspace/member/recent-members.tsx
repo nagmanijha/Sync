@@ -3,11 +3,11 @@ import useGetWorkspaceMembers from "../../../hooks/api/use-get-workspace-members
 import useWorkspaceId from "../../../hooks/use-workspace-id";
 import { getAvatarColor, getAvatarFallbackText } from "../../../lib/helper";
 import { format } from "date-fns";
-import { Loader } from "lucide-react";
+import { Loader, UserPlus } from "lucide-react";
 
 const RecentMembers = () => {
   const workspaceId = useWorkspaceId();
-  const { data, isPending } = useGetWorkspaceMembers(workspaceId);
+  const { data, isPending } = useGetWorkspaceMembers({ workspaceId });
 
   const members = data?.members || [];
 
@@ -21,6 +21,18 @@ const RecentMembers = () => {
         />
       ) : null}
 
+      {!isPending && members.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-12 text-center">
+          <div className="bg-blue-50 p-3 rounded-full mb-3">
+            <UserPlus className="h-6 w-6 text-primary" />
+          </div>
+          <h3 className="text-sm font-medium text-foreground">It's just you</h3>
+          <p className="text-sm text-muted-foreground mt-1 max-w-xs">
+            Work is better together. Invite your team members to collaborate!
+          </p>
+        </div>
+      )}
+
       <ul role="list" className="space-y-3">
         {members.map((member, index) => {
           const name = member?.userId?.name || "";
@@ -30,11 +42,11 @@ const RecentMembers = () => {
             <li
               key={index}
               role="listitem"
-              className="flex items-center gap-4 p-3 rounded-lg border border-gray-200 hover:bg-gray-50"
+              className="flex items-center gap-4 p-3 rounded-lg border border-transparent hover:bg-white hover:shadow-sm hover:border-gray-100 transition-all duration-200"
             >
               {/* Avatar */}
               <div className="flex-shrink-0">
-                <Avatar className="h-9 w-9 sm:flex">
+                <Avatar className="h-10 w-10 sm:flex border-2 border-white shadow-sm">
                   <AvatarImage
                     src={member.userId.profilePicture || ""}
                     alt="Avatar"
@@ -47,16 +59,15 @@ const RecentMembers = () => {
 
               {/* Member Details */}
               <div className="flex flex-col">
-                <p className="text-sm font-medium text-gray-900">
+                <p className="text-sm font-semibold text-foreground">
                   {member.userId.name}
                 </p>
-                <p className="text-sm text-gray-500">{member.role.name}</p>
+                <p className="text-xs text-muted-foreground">{member.role.name}</p>
               </div>
 
               {/* Joined Date */}
-              <div className="ml-auto text-sm text-gray-500">
-                <p>Joined</p>
-                <p>{member.joinedAt ? format(member.joinedAt, "PPP") : null}</p>
+              <div className="ml-auto text-xs text-muted-foreground">
+                <p>Joined {member.joinedAt ? format(member.joinedAt, "MMM d, yyyy") : null}</p>
               </div>
             </li>
           );

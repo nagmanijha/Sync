@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "../../ui/avatar";
 import useWorkspaceId from "../../../hooks/use-workspace-id";
 import useGetProjectsInWorkspaceQuery from "../../../hooks/api/use-get-projects";
-import { Loader } from "lucide-react";
+import { Loader, FolderPlus } from "lucide-react";
 import { getAvatarColor, getAvatarFallbackText } from "../../../lib/helper";
 import { format } from "date-fns";
 
@@ -27,13 +27,16 @@ const RecentProjects = () => {
          flex"
         />
       ) : null}
-      {projects?.length === 0 && (
-        <div
-          className="font-semibold
-         text-sm text-muted-foreground
-          text-center py-5"
-        >
-          No Project created yet
+
+      {!isPending && projects.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-12 text-center">
+          <div className="bg-blue-50 p-3 rounded-full mb-3">
+            <FolderPlus className="h-6 w-6 text-primary" />
+          </div>
+          <h3 className="text-sm font-medium text-foreground">No projects yet</h3>
+          <p className="text-sm text-muted-foreground mt-1 max-w-xs">
+            Projects help you organize tasks and team members. Start one to get rolling!
+          </p>
         </div>
       )}
 
@@ -47,29 +50,28 @@ const RecentProjects = () => {
             <li
               key={project._id}
               role="listitem"
-              className="shadow-none cursor-pointer border-0 py-2 hover:bg-gray-50 transition-colors ease-in-out "
+              className="group shadow-none cursor-pointer border-0 py-2 hover:bg-white hover:shadow-sm rounded-lg px-2 transition-all duration-200 ease-in-out"
             >
               <Link
                 to={`/workspace/${workspaceId}/project/${project._id}`}
                 className="grid gap-8 p-0"
               >
-                <div className="flex items-start gap-2">
-                  <div className="text-xl !leading-[1.4rem]">
+                <div className="flex items-start gap-3">
+                  <div className="text-xl !leading-[1.4rem] bg-slate-50 p-2 rounded-md group-hover:scale-110 transition-transform duration-200">
                     {project.emoji}
                   </div>
                   <div className="grid gap-1">
-                    <p className="text-sm font-medium leading-none">
+                    <p className="text-sm font-medium leading-none group-hover:text-primary transition-colors">
                       {project.name}
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                       {project.createdAt
                         ? format(project.createdAt, "PPP")
                         : null}
                     </p>
                   </div>
                   <div className="ml-auto flex items-center gap-4">
-                    <span className="text-sm text-gray-500">Created by</span>
-                    <Avatar className="hidden h-9 w-9 sm:flex">
+                    <Avatar className="hidden h-8 w-8 sm:flex border-2 border-white shadow-sm">
                       <AvatarImage
                         src={project.createdBy.profilePicture || ""}
                         alt="Avatar"
