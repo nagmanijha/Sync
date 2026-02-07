@@ -54,7 +54,8 @@ const SignIn = () => {
       onSuccess: (data) => {
         const user = data.user;
         const decodedUrl = returnUrl ? decodeURIComponent(returnUrl) : null;
-        navigate(decodedUrl || `/workspace/${user.currentWorkspace}`);
+        // navigate(decodedUrl || `/workspace/${user.currentWorkspace}`);
+        window.location.href = decodedUrl || `/workspace/${user.currentWorkspace}`;
       },
       onError: (error) => {
         toast({
