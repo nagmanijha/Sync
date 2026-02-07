@@ -22,7 +22,7 @@ import { toast } from "../../hooks/use-toast";
 import { Loader, Eye, EyeOff } from "lucide-react";
 
 const SignIn = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const returnUrl = searchParams.get("returnUrl");
 
