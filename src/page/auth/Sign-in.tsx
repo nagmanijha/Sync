@@ -69,9 +69,9 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="mesh-gradient relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden p-4 sm:p-6 lg:p-8">
+    <div className="mesh-gradient relative flex min-h-screen w-full flex-col items-center justify-center overflow-auto p-4 sm:p-6 lg:p-8">
       {/* Main Card Container */}
-      <div className="glass-card flex w-full max-w-[1100px] flex-col overflow-hidden rounded-xl shadow-2xl lg:flex-row min-h-[600px]">
+      <div className="glass-card flex w-full max-w-[1100px] flex-col overflow-hidden rounded-xl shadow-2xl lg:flex-row h-auto lg:h-[600px] min-h-0">
         {/* Left Side: 3D Illustration Panel */}
         <div className="relative hidden w-full lg:flex lg:w-1/2 flex-col justify-between bg-white/40 p-12 dark:bg-black/20">
           <div className="z-10 flex items-center gap-3">
@@ -97,25 +97,25 @@ const SignIn = () => {
         </div>
 
         {/* Right Side: Login Form */}
-        <div className="flex w-full flex-col justify-center bg-white/50 px-8 py-12 dark:bg-[#121022]/60 sm:px-12 lg:w-1/2 lg:px-16">
+        <div className="flex w-full flex-col justify-center bg-white/60 px-6 py-8 dark:bg-[#121022]/80 sm:px-12 lg:w-1/2 lg:px-16 h-full overflow-y-auto">
           {/* Mobile Header (Visible only on small screens) */}
-          <div className="mb-8 flex items-center gap-3 lg:hidden justify-center">
+          <div className="mb-6 flex items-center gap-3 lg:hidden justify-center">
             <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-white shadow-md">
               <Logo className="text-white fill-white w-5 h-5" />
             </div>
             <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">Sync</h2>
           </div>
 
-          <div className="mb-8 text-center lg:text-left">
-            <h1 className="font-display text-3xl font-extrabold text-slate-900 dark:text-white md:text-4xl">Welcome Back</h1>
-            <p className="mt-2 text-base text-slate-500 dark:text-slate-400">Enter your details to access your workspace.</p>
+          <div className="mb-6 text-center lg:text-left">
+            <h1 className="font-display text-2xl font-extrabold text-slate-900 dark:text-white md:text-3xl">Welcome Back</h1>
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Enter your details to access your workspace.</p>
           </div>
 
           {/* Social Login */}
           <GoogleOauthButton label="Log in with Google" />
 
           {/* Divider */}
-          <div className="relative my-5 flex items-center py-2">
+          <div className="relative my-4 flex items-center py-2">
             <div className="flex-grow border-t border-slate-200 dark:border-slate-700"></div>
             <span className="mx-3 flex-shrink-0 text-[10px] font-medium uppercase text-slate-400 dark:text-slate-500">Or continue with</span>
             <div className="flex-grow border-t border-slate-200 dark:border-slate-700"></div>
@@ -123,18 +123,18 @@ const SignIn = () => {
 
           {/* Login Form */}
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-1">
                     <FormLabel className="mb-1 block text-sm font-medium text-slate-900 dark:text-white">Email Address</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="name@company.com"
                         {...field}
-                        className="block w-full rounded-lg border border-slate-200 bg-white dark:bg-[#121022] dark:border-slate-700 dark:text-white dark:placeholder-slate-600 px-4 h-12 text-base shadow-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        className="block w-full rounded-lg border border-slate-200 bg-white dark:bg-[#121022] dark:border-slate-700 dark:text-white dark:placeholder-slate-600 px-3 h-10 text-sm shadow-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                       />
                     </FormControl>
                     <FormMessage />
@@ -146,7 +146,7 @@ const SignIn = () => {
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="space-y-1">
                     <div className="flex items-center justify-between">
                       <FormLabel className="mb-1 block text-sm font-medium text-slate-900 dark:text-white">Password</FormLabel>
                       <div className="text-xs">
@@ -164,7 +164,7 @@ const SignIn = () => {
                         <Input
                           type={showPassword ? "text" : "password"}
                           {...field}
-                          className="block w-full rounded-lg border border-slate-200 bg-white dark:bg-[#121022] dark:border-slate-700 dark:text-white dark:placeholder-slate-600 px-4 h-12 text-base shadow-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 pr-10"
+                          className="block w-full rounded-lg border border-slate-200 bg-white dark:bg-[#121022] dark:border-slate-700 dark:text-white dark:placeholder-slate-600 px-3 h-10 text-sm shadow-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 pr-10"
                           placeholder="••••••••"
                         />
                       </FormControl>
@@ -173,7 +173,7 @@ const SignIn = () => {
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 dark:hover:text-white focus:outline-none"
                       >
-                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
                     <FormMessage />
@@ -182,7 +182,7 @@ const SignIn = () => {
               />
 
               {/* Remember Me */}
-              <div className="flex items-center">
+              <div className="flex items-center mt-2">
                 <input
                   id="remember-me"
                   name="remember-me"
@@ -195,7 +195,7 @@ const SignIn = () => {
               <Button
                 type="submit"
                 disabled={isPending}
-                className="mt-2 flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-primary to-indigo-600 h-12 text-base font-bold text-white shadow-lg shadow-indigo-500/30 transition-all hover:scale-[1.02] hover:shadow-indigo-500/40 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-[#1e1c2e]"
+                className="mt-2 flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-primary to-indigo-600 h-10 text-sm font-bold text-white shadow-lg shadow-indigo-500/30 transition-all hover:scale-[1.02] hover:shadow-indigo-500/40 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-[#1e1c2e]"
               >
                 {isPending && <Loader className="mr-2 h-4 w-4 animate-spin" />}
                 Login to Dashboard
@@ -204,7 +204,7 @@ const SignIn = () => {
           </Form>
 
           {/* Footer Sign Up */}
-          <div className="mt-8 text-center text-sm">
+          <div className="mt-6 text-center text-sm">
             <p className="text-slate-500 dark:text-slate-400">
               Don&apos;t have an account?{" "}
               <Link
@@ -217,17 +217,17 @@ const SignIn = () => {
           </div>
 
           {/* Footer Tagline for Mobile */}
-          <div className="mt-8 block text-center lg:hidden">
+          <div className="mt-6 block text-center lg:hidden">
             <p className="text-xs font-medium text-slate-400 dark:text-slate-600">B2B Project Management SaaS</p>
           </div>
         </div>
       </div>
 
       {/* Footer Links */}
-      <div className="mt-8 flex gap-6 text-sm text-white/60">
-        <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-        <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-        <Link to="/contact" className="hover:text-white transition-colors">Help Center</Link>
+      <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm text-slate-600 dark:text-slate-400 lg:text-white/60">
+        <Link to="/privacy" className="hover:text-primary lg:hover:text-white transition-colors">Privacy Policy</Link>
+        <Link to="/terms" className="hover:text-primary lg:hover:text-white transition-colors">Terms of Service</Link>
+        <Link to="/contact" className="hover:text-primary lg:hover:text-white transition-colors">Help Center</Link>
       </div>
     </div>
   );
