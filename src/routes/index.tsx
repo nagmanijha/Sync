@@ -10,17 +10,22 @@ import AppLayout from "../layout/app.layout";
 import BaseLayout from "../layout/base.layout";
 import NotFound from "../page/errors/NotFound";
 
+import Landing from "../page/Landing";
+
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Landing Page */}
+        <Route path="/" element={<Landing />} />
+
         <Route element={<BaseLayout />}>
           {baseRoutePaths.map((route) => (
             <Route key={route.path} path={route.path} element={route.element} />
           ))}
         </Route>
 
-        <Route path="/" element={<AuthRoute />}>
+        <Route element={<AuthRoute />}>
           <Route element={<BaseLayout />}>
             {authenticationRoutePaths.map((route) => (
               <Route

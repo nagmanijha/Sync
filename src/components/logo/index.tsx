@@ -1,4 +1,3 @@
-import { AudioWaveform } from "lucide-react";
 import { cn } from "../../lib/utils";
 
 interface LogoProps {
@@ -6,8 +5,8 @@ interface LogoProps {
 }
 
 const Logo = ({ className }: LogoProps) => (
-  <div className={cn("flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground", className)}>
-    <AudioWaveform className="size-4" />
+  <div className={cn("flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold text-lg", className)}>
+    S
   </div>
 );
 
